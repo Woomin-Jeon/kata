@@ -21,7 +21,7 @@ const solution = (clothes) => {
   clothes.forEach((v, i) => {
     let getValue = map.get(clothes[i][1]);
 
-    if (getValue) {
+    if (map.has(cloth[i][1])) {
       map.set(clothes[i][1], getValue + 1);
     } else {
       map.set(clothes[i][1], 1);
