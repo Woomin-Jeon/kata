@@ -1,0 +1,74 @@
+# 숫자 야구
+
+## 이해
+
+- 숫자는 맞지만, 위치가 틀렸을 때는 볼
+- 숫자와 위치가 모두 맞을 때는 스트라이크
+- 숫자와 위치가 모두 틀렸을 때는 아웃
+- [맞는지 질문한 세자리 수, 스트라이크 수, 볼 수] 가 주어질 때, 가능한 답의 개수를 return하라
+- 숫자는 111 ~ 999 까지이다.
+- 각 자리의 숫자는 달라야 한다.
+
+## 계획
+
+- 111 ~ 999 까지 담긴 배열 numbers를 만든다.
+- numbers에 각 해당하는 숫자를 넣었을 때 그게 [스트라이크, 볼]로 반환하는 함수를 만든다.
+- 그리고 baseball과의 결과와 비교해서 아닌 것을 제거해준다.
+- 마지막에 남은 것들의 길이를 반환한다.
+
+## 실행
+
+```javascript
+const solution = (baseball) => {
+  let numbers = Array(889).fill(111).map((v, i) => v + i);
+
+  numbers = numbers.filter(v => !v.toString().split('').includes('0'));
+  numbers = numbers.filter((v, i) => {
+    const arr = v.toString();
+    return arr[0] === arr[1] || arr[1] === arr[2] || arr[0] === arr[2] ? false : true;
+  });
+
+  baseball.forEach(question => {
+    numbers = numbers.filter(answer => {
+      const result = response(answer, question[0]);
+      return result[0] === question[1] && result[1] === question[2] ? true : false;
+    });
+  });
+  
+  return numbers.length;
+};
+
+const response = (answer, question) => {
+  const answerArray = answer.toString().split('').map(v => Number(v));
+  const questionArray = question.toString().split('').map(v => Number(v));
+
+  let strike = 0;
+  let ball = 0;
+
+  answerArray.forEach((v, i) => {
+    if (answerArray[i] === questionArray[i]) {
+      strike += 1;
+    } else if (answerArray.includes(questionArray[i])) {
+      ball += 1;
+    }
+  });
+
+  return [strike, ball];
+}
+
+test('response', () => {
+  expect(response(111, 123)).toEqual([1, 0]);
+  expect(response(111, 113)).toEqual([2, 0]);
+  expect(response(111, 233)).toEqual([0, 0]);
+  expect(response(123, 132)).toEqual([1, 2]);
+});
+
+test('solution', () => {
+  expect(solution([[123, 1, 1], [356, 1, 0], [327, 2, 0], [489, 0, 1]])).toBe(2);
+});
+```
+
+## 회고
+
+- 에라토스테네스의 체 개념을 활용해서 풀어보았다.
+- 괜찮은 접근 방법이었던 것 같고 TDD의 장점을 잘 살린 것 같아 뿌듯하다.
