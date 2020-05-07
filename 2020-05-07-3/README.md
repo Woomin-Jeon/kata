@@ -20,13 +20,13 @@
 
 ```javascript
 const solution = (baseball) => {
-  let numbers = Array(889).fill(111).map((v, i) => v + i);
-
-  numbers = numbers.filter(v => !v.toString().split('').includes('0'));
-  numbers = numbers.filter((v, i) => {
-    const arr = v.toString();
-    return arr[0] === arr[1] || arr[1] === arr[2] || arr[0] === arr[2] ? false : true;
-  });
+  let numbers = Array(889).fill(111)
+    .map((v, i) => v + i)
+    .filter(v => !v.toString().split('').includes('0'))
+    .filter((v, i) => {
+      const arr = v.toString()
+      return arr[0] === arr[1] || arr[1] === arr[2] || arr[0] === arr[2] ? false : true;
+    });
 
   baseball.forEach(question => {
     numbers = numbers.filter(answer => {
