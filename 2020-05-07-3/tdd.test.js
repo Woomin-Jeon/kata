@@ -1,25 +1,21 @@
-const solution = (baseball) => {
-  let numbers = Array(889).fill(111)
-    .map((v, i) => v + i)
-    .filter(v => !v.toString().split('').includes('0'))
-    .filter((v, i) => {
-      const arr = v.toString()
-      return arr[0] === arr[1] || arr[1] === arr[2] || arr[0] === arr[2] ? false : true;
-    });
+const solution = (baseball) => Array(889).fill(111).map((v, i) => v + i)
+    .map(v => v.toString().split(''))
+    .filter(v => removeZero(v))
+    .filter(v => removeDuplication(v))
+    .map(v => v.join(''))
+    .filter(answer => baseball.every(question => {
+        const result = response(answer, question[0]);
+        return result[0] === question[1] && result[1] === question[2] ? true : false;
+      })
+    ).length;
 
-  baseball.forEach(question => {
-    numbers = numbers.filter(answer => {
-      const result = response(answer, question[0]);
-      return result[0] === question[1] && result[1] === question[2] ? true : false;
-    });
-  });
-  
-  return numbers.length;
-};
+const splitNumberToArray = (numbers) => numbers.toString().split('').map(v => Number(v));
+const removeZero = (v) => !v.includes('0');
+const removeDuplication = (v) => new Set(v).size === 3;
 
 const response = (answer, question) => {
-  const answerArray = answer.toString().split('').map(v => Number(v));
-  const questionArray = question.toString().split('').map(v => Number(v));
+  const answerArray = splitNumberToArray(answer);
+  const questionArray = splitNumberToArray(question);
 
   let strike = 0;
   let ball = 0;
