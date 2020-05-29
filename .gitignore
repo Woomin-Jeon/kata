@@ -1,6 +1,10 @@
 # JavaScript Ignore
 node_modules
 
+
+# Java
+out
+
 # Created by https://www.gitignore.io/api/java,linux,intellij
 # Edit at https://www.gitignore.io/?templates=java,linux,intellij
 
