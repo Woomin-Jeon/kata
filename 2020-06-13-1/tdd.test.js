@@ -1,4 +1,3 @@
-
 const solution = (s) =>
   s.split(" ").map(v => convertToJadenCase(v)).join(" ");
 
