@@ -17,26 +17,15 @@ const findNumber = (fileName) => Number(fileName.split(/[^0-9]/g).filter(v => v)
 
 const sortFileNamesByType = (fileTypes) => {
   fileTypes.sort((a, b) => {
-    if (a.head < b.head) {
-      return -1;
-    }
-    if (a.head > b.head) {
-      return 1;
+    if (a.head !== b.head) {
+      return a.head.localeCompare(b.head);
     }
 
-    if (a.number < b.number) {
-      return -1;
-    }
-    if (a.number > b.number) {
-      return 1;
+    if (a.number !== b.number) {
+      return a.number - b.number;
     }
 
-    if (a.index > b.index) {
-      return 1;
-    }
-    if (a.index < b.index) {
-      return -1;
-    }
+    return a.index - b.index;
   });
 
   return fileTypes.map(v => v.name);
